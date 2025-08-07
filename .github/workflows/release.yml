@@ -1,0 +1,82 @@
+name: Deploy modpack
+
+on:
+  # Trigger on tag creation
+  create:
+    tags:
+      - '*'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "deploy"
+  cancel-in-progress: false
+
+env:
+  PACKWIZ_COMMIT: 241f24b550f6fe838913a56bdd58bac2fc53254a
+  PACKWIZ_DIR: /tmp/packwiz_artifact
+  PACKWIZ: /tmp/packwiz_artifact/packwiz
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure tags are fetched
+
+      # Cache and prepare Packwiz
+      - name: Cache Packwiz
+        id: cache-packwiz
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PACKWIZ_DIR }}
+          key: packwiz-${{ env.PACKWIZ_COMMIT }}
+
+      - if: ${{ steps.cache-packwiz.outputs.cache-hit != 'true' }}
+        name: Download Packwiz
+        uses: dawidd6/action-download-artifact@v8
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repo: modfest/packwiz
+          workflow: go.yml
+          name: "Linux 64-bit x86"
+          path: ${{ env.PACKWIZ_DIR }}
+          commit: ${{ env.PACKWIZ_COMMIT }}
+          allow_forks: true
+
+      - name: Make packwiz executable
+        run: chmod +x ${{ env.PACKWIZ }}
+
+      # Export with packwiz
+      - name: Export modpack with packwiz
+        run: |
+          cd ./pack
+          ${{ env.PACKWIZ }} modrinth export
+
+      # Determine tag name
+      - name: Get tag name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      # Move the generated .mrpack file
+      - name: Rename exported file
+        run: |
+          mv ./pack/*.mrpack "Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack"
+
+      # Create GitHub release and upload .mrpack
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.TAG_NAME }}
+          name: "Titanium Developers Modpack v${{ steps.tag.outputs.TAG_NAME }}"
+          files: "Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

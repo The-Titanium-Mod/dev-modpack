@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 6,
+  "currentVersion": "0.0.1",
+  "modpackName": "Titanium Developers Modpack",
+  "modpackAuthor": "rotgruengelb",
+  "modpackReleaseType": "stable",
+  "githubRepo": "https://github.com/The-Titanium-Mod/dev-modpack/raw/refs/heads/main/",
+  "advanced": {
+    "bccEnabled": false,
+    "expandButton": false,
+    "updateCheckerType": 2,
+    "addButton": true,
+    "mainMenuCreditsIntegration": true,
+    "modpackMods": []
+  }
+}
