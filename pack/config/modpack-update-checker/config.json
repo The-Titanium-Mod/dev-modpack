@@ -9,8 +9,8 @@
     "bccEnabled": false,
     "expandButton": false,
     "updateCheckerType": 2,
-    "addButton": true,
-    "mainMenuCreditsIntegration": true,
+    "addButton": false,
+    "mainMenuCreditsIntegration": false,
     "modpackMods": []
   }
 }
