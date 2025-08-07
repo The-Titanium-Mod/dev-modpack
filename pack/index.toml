@@ -6,7 +6,7 @@ hash = "5be9d5889ff4d343253c511dd9b52aaf308a7ba359b0ef308e51be0969e9d7f6"
 
 [[files]]
 file = "config/modpack-update-checker/config.json"
-hash = "45d7308a92a0a816ba059623db74c9ff5073ace10942472b0353694e35e91eb6"
+hash = "65500b249d2acf955b279ebe11ad1f3816b87e1a0b2b95ca6d3a36c782d38511"
 
 [[files]]
 file = "icon.png"
@@ -151,6 +151,10 @@ metafile = true
 file = "mods/teabridge.pw.toml"
 hash = "00c2bd62e6a32573ca1c0c3ab0c3a2fd3d9a65deba942576e35f0b9e48dc18cf"
 metafile = true
+
+[[files]]
+file = "mods/titanium-0.1.0+1.21.1.jar"
+hash = "1b8f48646ac2028692325f6902d42e93421e2c0050af4a55ee97b5166815197c"
 
 [[files]]
 file = "mods/tt20.pw.toml"
