@@ -1,0 +1,13 @@
+name = "Titanium Developers Modpack"
+author = "rotgruengelb"
+version = "0.0.1"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "d2ebcb51fe42b81e3100b19ee0db8b4eefa8b1072bee1814237fc43094bdf670"
+
+[versions]
+fabric = "0.17.1"
+minecraft = "1.21.1"
