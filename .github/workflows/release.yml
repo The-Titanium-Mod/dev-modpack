@@ -75,7 +75,7 @@ jobs:
       - name: Create autoupdate zip
         run: |
           cd unsup
-          zip -r "../Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip" ./*
+          zip -r "../Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip" . -x "*.DS_Store"
 
       # Create GitHub release and upload both files
       - name: Create GitHub Release
