@@ -69,21 +69,22 @@ jobs:
       # Move the generated .mrpack file
       - name: Rename exported file
         run: |
-          mv ./pack/*.mrpack "Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack"
+          mv ./pack/*.mrpack "Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack"
 
-      # Zip ./unsup directory and rename to match -autoupdate.zip
+      # Zip contents of ./unsup
       - name: Create autoupdate zip
         run: |
-          zip -r "Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip" ./unsup
+          cd unsup
+          zip -r "../Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip" ./*
 
       # Create GitHub release and upload both files
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.TAG_NAME }}
-          name: "v${{ steps.tag.outputs.TAG_NAME }}"
+          name: "Titanium Developers Modpack v${{ steps.tag.outputs.TAG_NAME }}"
           files: |
-            Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack
-            Titanium Developers Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip
+            Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack
+            Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
