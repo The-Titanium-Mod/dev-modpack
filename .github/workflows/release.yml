@@ -85,6 +85,6 @@ jobs:
           name: "v${{ steps.tag.outputs.TAG_NAME }}"
           files: |
             Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}.mrpack
-            Titanium_Developers_Modpack-${{ steps.tag.outputs.TAG_NAME }}-autoupdate.zip
+            Titanium_Developers_Modpack-autoupdate.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
